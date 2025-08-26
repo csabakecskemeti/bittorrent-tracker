@@ -4,16 +4,31 @@
 
 This is a specialized implementation of a BitTorrent tracker designed specifically for distributing AI models in a secure, decentralized way. Unlike traditional trackers that allow any content, this tracker only permits pre-approved AI models from trusted sources.
 
+## 📥 Installation
+
+This tracker uses a custom fork with AI model filtering capabilities:
+
+```bash
+git clone git@github.com:csabakecskemeti/bittorrent-tracker.git -b model_registry
+cd bittorrent-tracker
+npm install
+```
+
 ## 🚀 Quick Start - Ready to Use Commands
 
 ### Start the System
 ```bash
-# 1. Start API server (manages model registry)
-npm start
+# 1. Clone the custom tracker with AI filtering
+git clone git@github.com:csabakecskemeti/bittorrent-tracker.git -b model_registry
+cd bittorrent-tracker
 
 # 2. Build and run Docker tracker (handles BitTorrent protocol)
 docker build -t ai-tracker .
 docker run -d -p 9887:9887 -p 9888:9888/udp -v "$(pwd)/torrent-registry.json:/app/torrent-registry.json" ai-tracker
+
+# 3. Start API server (manages model registry) - run from parent directory
+cd ..
+npm start
 ```
 
 ### Query Available Models
