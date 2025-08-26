@@ -24,8 +24,8 @@ app.use((req, res, next) => {
   next()
 })
 
-// Registry file handling
-const REGISTRY_FILE = path.join(__dirname, 'torrent-registry.json')
+// Registry file handling - look in parent directory
+const REGISTRY_FILE = path.join(__dirname, '../torrent-registry.json')
 
 function loadRegistry() {
   try {

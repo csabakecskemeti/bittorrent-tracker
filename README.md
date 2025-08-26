@@ -6,12 +6,11 @@ This is a specialized implementation of a BitTorrent tracker designed specifical
 
 ## 📥 Installation
 
-This tracker uses a custom fork with AI model filtering capabilities:
+This tracker uses a custom fork with AI model filtering capabilities. Everything runs in Docker - no local Node.js setup required:
 
 ```bash
 git clone git@github.com:csabakecskemeti/bittorrent-tracker.git -b model_registry
 cd bittorrent-tracker
-npm install
 ```
 
 ## 🚀 Quick Start - Ready to Use Commands
@@ -22,14 +21,26 @@ npm install
 git clone git@github.com:csabakecskemeti/bittorrent-tracker.git -b model_registry
 cd bittorrent-tracker
 
-# 2. Build and run Docker tracker (handles BitTorrent protocol)
+# 2. Build Docker image (contains both tracker and API)
 docker build -t ai-tracker .
-docker run -d -p 9887:9887 -p 9888:9888/udp -v "$(pwd)/torrent-registry.json:/app/torrent-registry.json" ai-tracker
 
-# 3. Start API server (manages model registry) - run from parent directory
-cd ..
-npm start
+# 3a. Run container - localhost only (default)
+docker run -d -p 9887:9887 -p 8100:8100 -p 9888:9888/udp -v "$(pwd)/torrent-registry.json:/app/torrent-registry.json" ai-tracker
+
+# 3b. Run container - network-wide access (bind to all interfaces)
+docker run -d -p 0.0.0.0:9887:9887 -p 0.0.0.0:8100:8100 -p 0.0.0.0:9888:9888/udp -v "$(pwd)/torrent-registry.json:/app/torrent-registry.json" ai-tracker
 ```
+
+**Services running in container:**
+- **Tracker**: Port 9887 (BitTorrent protocol)
+- **API**: Port 8100 (Model management)
+- **UDP Tracker**: Port 9888 (Optional)
+
+**Network Access:**
+- **Localhost only**: Services accessible from same machine only
+- **Network-wide**: Services accessible from any device on your local network
+  - Find your IP: `ifconfig | grep "inet " | grep -v 127.0.0.1`
+  - Access from other devices: `http://YOUR_IP:8100/api/torrents`
 
 ### Query Available Models
 ```bash
