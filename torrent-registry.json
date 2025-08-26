@@ -1,0 +1,28 @@
+{
+  "torrents": [
+    {
+      "id": "liquidai-lfm2350m",
+      "name": "LiquidAI LFM2-350M",
+      "description": "LiquidAI Language Foundation Model 2 - 350M parameters",
+      "category": "LLM",
+      "tags": [
+        "liquidai",
+        "lfm2",
+        "350m"
+      ],
+      "size": "Unknown",
+      "infoHash": "445cf3cbd272ac373d15ceed4aa525eb49ffac66",
+      "magnetLink": "magnet:?xt=urn:btih:445cf3cbd272ac373d15ceed4aa525eb49ffac66&dn=LiquidAI%20LFM2-350M&tr=http%3A%2F%2Flocalhost%3A9887%2Fannounce",
+      "approved": true,
+      "uploaded": "2025-08-26T19:23:44.805Z",
+      "trackerUrl": "http://localhost:9887/announce",
+      "seeders": 0,
+      "leechers": 0,
+      "lastUpdated": "2025-08-26T19:23:44.805Z",
+      "sourceLinks": {
+        "huggingface": "https://huggingface.co/LiquidAI/LFM2-350M"
+      },
+      "modelInfo": {}
+    }
+  ]
+}

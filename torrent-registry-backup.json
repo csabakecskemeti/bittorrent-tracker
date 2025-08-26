@@ -1,0 +1,104 @@
+{
+  "torrents": [
+    {
+      "id": "test-model-1",
+      "name": "Test GGUF Model",
+      "description": "Sample GGUF model for testing the tracker system",
+      "category": "LLM",
+      "tags": [
+        "test",
+        "gguf",
+        "sample"
+      ],
+      "size": "1.2GB",
+      "infoHash": "test-hash-123",
+      "magnetLink": "magnet:?xt=urn:btih:test-hash-123&dn=Test%20GGUF%20Model&tr=http://localhost:9887/announce",
+      "approved": true,
+      "uploaded": "2025-08-09T22:00:00Z",
+      "trackerUrl": "http://localhost:9887/announce",
+      "seeders": 1,
+      "leechers": 1,
+      "lastUpdated": "2025-08-26T16:00:00Z",
+      "sourceLinks": {
+        "huggingface": null,
+        "github": null,
+        "paper": null,
+        "license": null,
+        "website": null
+      },
+      "modelInfo": {
+        "architecture": "Test",
+        "parameters": "Unknown",
+        "quantization": "GGUF",
+        "format": "GGUF",
+        "license": "Unknown",
+        "baseModel": null
+      }
+    },
+    {
+      "id": "llama-2-7b-chat-gguf-q4km",
+      "name": "Llama 2 7B Chat GGUF Q4_K_M",
+      "description": "Meta's Llama 2 7B conversational model, quantized to Q4_K_M format",
+      "category": "LLM",
+      "tags": [
+        "llama",
+        "chat",
+        "7b",
+        "q4",
+        "gguf"
+      ],
+      "size": "4.2GB",
+      "infoHash": "a1b2c3d4e5f6789012345678901234567890abcd",
+      "magnetLink": "magnet:?xt=urn:btih:a1b2c3d4e5f6789012345678901234567890abcd&dn=Llama%202%207B%20Chat%20GGUF%20Q4_K_M&tr=http%3A%2F%2Flocalhost%3A9887%2Fannounce",
+      "approved": true,
+      "uploaded": "2025-08-26T17:25:07.123Z",
+      "trackerUrl": "http://localhost:9887/announce",
+      "seeders": 0,
+      "leechers": 0,
+      "lastUpdated": "2025-08-26T17:25:07.123Z",
+      "sourceLinks": {
+        "huggingface": "https://huggingface.co/meta-llama/Llama-2-7b-chat-hf",
+        "github": "https://github.com/facebookresearch/llama",
+        "paper": "https://arxiv.org/abs/2307.09288"
+      },
+      "modelInfo": {
+        "architecture": "Llama",
+        "parameters": "7B",
+        "quantization": "Q4_K_M",
+        "format": "GGUF",
+        "license": "Custom (Llama 2)"
+      }
+    },
+    {
+      "id": "liquidai-lfm2350m",
+      "name": "LiquidAI LFM2-350M",
+      "description": "LiquidAI Language Foundation Model 2 - 350M parameters",
+      "category": "LLM",
+      "tags": [
+        "liquidai",
+        "lfm2",
+        "350m",
+        "language-model"
+      ],
+      "size": "Unknown",
+      "infoHash": "445cf3cbd272ac373d15ceed4aa525eb49ffac66",
+      "magnetLink": "magnet:?xt=urn:btih:445cf3cbd272ac373d15ceed4aa525eb49ffac66&dn=LiquidAI%20LFM2-350M&tr=http%3A%2F%2Flocalhost%3A9887%2Fannounce",
+      "approved": true,
+      "uploaded": "2025-08-26T19:02:27.251Z",
+      "trackerUrl": "http://localhost:9887/announce",
+      "seeders": 0,
+      "leechers": 0,
+      "lastUpdated": "2025-08-26T19:02:27.251Z",
+      "sourceLinks": {
+        "huggingface": "https://huggingface.co/LiquidAI/LFM2-350M",
+        "website": "https://www.liquid.ai/"
+      },
+      "modelInfo": {
+        "architecture": "LFM",
+        "parameters": "350M",
+        "format": "Unknown",
+        "license": "Unknown"
+      }
+    }
+  ]
+}
