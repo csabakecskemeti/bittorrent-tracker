@@ -1,15 +1,140 @@
-# bittorrent-tracker [![ci][ci-image]][ci-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]
+# AI Model Tracker - BitTorrent-based Decentralized AI Model Distribution
 
-[ci-image]: https://img.shields.io/github/actions/workflow/status/webtorrent/bittorrent-tracker/ci.yml
-[ci-url]: https://github.com/webtorrent/bittorrent-tracker/actions
-[npm-image]: https://img.shields.io/npm/v/bittorrent-tracker.svg
-[npm-url]: https://npmjs.org/package/bittorrent-tracker
-[downloads-image]: https://img.shields.io/npm/dm/bittorrent-tracker.svg
-[downloads-url]: https://npmjs.org/package/bittorrent-tracker
-[standard-image]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
-[standard-url]: https://standardjs.com
+**Secure, whitelist-only BitTorrent tracker for legitimate AI models**
 
-#### Simple, robust, BitTorrent tracker (client & server) implementation
+This is a specialized implementation of a BitTorrent tracker designed specifically for distributing AI models in a secure, decentralized way. Unlike traditional trackers that allow any content, this tracker only permits pre-approved AI models from trusted sources.
+
+## 🚀 Quick Start - Ready to Use Commands
+
+### Start the System
+```bash
+# 1. Start API server (manages model registry)
+npm start
+
+# 2. Build and run Docker tracker (handles BitTorrent protocol)
+docker build -t ai-tracker .
+docker run -d -p 9887:9887 -p 9888:9888/udp -v "$(pwd)/torrent-registry.json:/app/torrent-registry.json" ai-tracker
+```
+
+### Query Available Models
+```bash
+# List all approved AI models
+curl http://localhost:8100/api/torrents
+
+# Search for specific models
+curl "http://localhost:8100/api/search?q=liquid"
+
+# Get magnet link for a specific model
+curl http://localhost:8100/api/magnet/liquidai-lfm2350m
+
+# Check tracker statistics
+curl http://localhost:9887/stats
+```
+
+### Admin Operations
+```bash
+# Add new AI model (admin only)
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer admin123" \
+  http://localhost:8100/admin/api/add-torrent \
+  -d '{
+    "name": "Llama 2 7B Chat GGUF",
+    "description": "Meta Llama 2 7B conversational model",
+    "category": "LLM",
+    "infoHash": "a1b2c3d4e5f6789012345678901234567890abcd",
+    "sourceLinks": {
+      "huggingface": "https://huggingface.co/meta-llama/Llama-2-7b-chat-hf"
+    }
+  }'
+
+# List all models (including unapproved)
+curl -H "Authorization: Bearer admin123" http://localhost:8100/admin/api/torrents
+
+# Remove a model
+curl -X DELETE -H "Authorization: Bearer admin123" http://localhost:8100/admin/api/torrent/model-id
+```
+
+### Health Checks
+```bash
+# API server health
+curl http://localhost:8100/health
+
+# Tracker stats (HTML)
+curl http://localhost:9887/stats
+
+# Tracker stats (JSON)
+curl http://localhost:9887/stats.json
+```
+
+## 🔒 Security Features
+
+- **Whitelist-only**: Only pre-approved AI models are tracked
+- **Admin authentication**: Bearer token required for management
+- **Source verification**: Links to original HuggingFace/GitHub sources
+- **Docker isolation**: Tracker runs in secure container
+- **Non-root execution**: Container runs as non-root user
+
+## 📊 API Endpoints
+
+### Public Endpoints (No Auth Required)
+- `GET /api/torrents` - List all approved models
+- `GET /api/search?q=query` - Search models by name/description/tags
+- `GET /api/torrent/:id` - Get specific model details
+- `GET /api/magnet/:id` - Get magnet link for model
+- `GET /health` - API health check
+- `GET /stats` - Proxy to tracker stats
+
+### Admin Endpoints (Bearer Token Required)
+- `POST /admin/api/add-torrent` - Add new model to registry
+- `GET /admin/api/torrents` - List all models (including pending)
+- `DELETE /admin/api/torrent/:id` - Remove model from registry
+
+## 🐳 Docker Configuration
+
+**Ports:**
+- `9887` - HTTP tracker (BitTorrent announce/scrape)
+- `9888/udp` - UDP tracker (optional)
+
+**Volumes:**
+- `/app/torrent-registry.json` - Shared model registry
+
+**Environment:**
+- `REGISTRY_PATH=/app/torrent-registry.json`
+
+## 🏗️ Architecture
+
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   API Server    │    │ torrent-registry │    │ Docker Tracker  │
+│   (port 8100)   │◄──►│     .json        │◄──►│   (port 9887)   │
+│                 │    │  (shared file)   │    │                 │
+│ Model Mgmt      │    │                  │    │ BitTorrent      │
+│ Search/Query    │    │  Approved Models │    │ Protocol        │
+│ Admin Auth      │    │  Metadata        │    │ Whitelist Filter│
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+```
+
+## 💾 Registry Format
+
+Each model entry contains:
+```json
+{
+  "id": "liquidai-lfm2350m",
+  "name": "LiquidAI LFM2-350M",
+  "description": "Language Foundation Model 2 - 350M parameters",
+  "category": "LLM",
+  "tags": ["liquidai", "lfm2", "350m"],
+  "infoHash": "445cf3cbd272ac373d15ceed4aa525eb49ffac66",
+  "magnetLink": "magnet:?xt=urn:btih:...",
+  "approved": true,
+  "sourceLinks": {
+    "huggingface": "https://huggingface.co/LiquidAI/LFM2-350M"
+  }
+}
+```
+
+---
+
+## Original BitTorrent Tracker Documentation
 
 ![tracker visualization](img/img.png)
 
